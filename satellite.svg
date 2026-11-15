@@ -1,0 +1,16 @@
+<!-- Space background (From space): a satellite looking down at the curve of the Earth -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+  <defs><linearGradient id="limb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4fb3e8"/><stop offset="1" stop-color="#1f6fb2"/></linearGradient></defs>
+  <circle cx="300" cy="1150" r="700" fill="#7fd3ff" opacity="0.35"/>
+  <circle cx="300" cy="1160" r="690" fill="url(#limb)"/>
+  <path d="M120 520 C170 490 230 495 260 520 C230 540 170 545 120 520 Z M360 500 C410 480 470 485 500 505 C470 525 410 525 360 500 Z" fill="#3fa34d"/>
+  <g transform="translate(330 220) rotate(-20)">
+    <rect x="-120" y="-22" width="90" height="44" fill="#1f6fb2" stroke="#0c3b6e" stroke-width="3"/>
+    <rect x="30" y="-22" width="90" height="44" fill="#1f6fb2" stroke="#0c3b6e" stroke-width="3"/>
+    <line x1="-30" y1="0" x2="30" y2="0" stroke="#555" stroke-width="5"/>
+    <rect x="-28" y="-34" width="56" height="68" rx="6" fill="#e2b04a" stroke="#9a7420" stroke-width="3"/>
+    <circle cx="0" cy="44" r="10" fill="#9a7420"/>
+  </g>
+  <path d="M330 270 L250 470 L410 470 Z" fill="#ffd27a" opacity="0.35"/>
+  <g fill="#00843d"><circle cx="80" cy="90" r="4"/><circle cx="520" cy="70" r="3"/><circle cx="470" cy="160" r="4"/><circle cx="110" cy="250" r="3"/><circle cx="560" cy="300" r="3"/></g>
+</svg>

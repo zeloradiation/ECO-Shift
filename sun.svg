@@ -1,0 +1,11 @@
+<!-- Heat background (Is my area hotter?): a hot sun over desert dunes with heat waves -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+  <circle cx="400" cy="230" r="150" fill="#ffd27a" opacity="0.5"/>
+  <circle cx="400" cy="230" r="100" fill="#ffb547"/>
+  <g fill="none" stroke="#e66767" stroke-width="5" stroke-linecap="round" opacity="0.7">
+    <path d="M150 380 c20 -15 40 15 60 0 s40 15 60 0 s40 15 60 0"/>
+    <path d="M250 420 c20 -15 40 15 60 0 s40 15 60 0 s40 15 60 0"/>
+  </g>
+  <path d="M0 500 C120 440 240 460 330 500 C430 450 530 450 600 480 L600 600 L0 600 Z" fill="#e8c27a"/>
+  <path d="M0 550 C160 510 320 530 600 520 L600 600 L0 600 Z" fill="#d4a95a"/>
+</svg>

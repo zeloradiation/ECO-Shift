@@ -1,0 +1,9 @@
+<!-- Method background (How it works): dots, the "ruler line" through them, and a magnifier -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+  <g stroke="#00843d" stroke-width="4" stroke-linecap="round"><line x1="80" y1="520" x2="540" y2="520"/><line x1="80" y1="520" x2="80" y2="120"/></g>
+  <line x1="100" y1="470" x2="520" y2="200" stroke="#c98500" stroke-width="7" stroke-dasharray="18 12" stroke-linecap="round"/>
+  <g fill="#3fa34d"><circle cx="120" cy="450" r="12"/><circle cx="180" cy="430" r="12"/><circle cx="240" cy="400" r="12"/>
+    <circle cx="300" cy="350" r="12"/><circle cx="360" cy="330" r="12"/><circle cx="420" cy="270" r="12"/><circle cx="480" cy="240" r="12"/></g>
+  <circle cx="300" cy="350" r="60" fill="#ffffff" fill-opacity="0.4" stroke="#0b5132" stroke-width="10"/>
+  <line x1="343" y1="393" x2="400" y2="450" stroke="#0b5132" stroke-width="16" stroke-linecap="round"/>
+</svg>

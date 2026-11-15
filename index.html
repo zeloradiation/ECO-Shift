@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ECO DRIFT - Saudi Arabia Earth Trend Detective</title>
+
+    <!-- Chart.js for the charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"
+            integrity="sha384-Sse/HDqcypGpyTDpvZOJNnG0TT3feGQUkF9H+mnRvic+LjR+K1NhTt8f51KIQ3v3"
+            crossorigin="anonymous"></script>
+
+    <link rel="icon" type="image/png" href="img/favicon.png">   <!-- the small picture in the browser tab -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="intro-on">
+<div class="sky"></div>
+
+<!-- icons (used like <use href="#i-temp">) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+        <g id="i-temp"><path d="M10 4a2 2 0 0 1 4 0v9.5a4 4 0 1 1-4 0z"/><circle cx="12" cy="17" r="1.6" fill="currentColor"/></g>
+        <g id="i-ground"><path d="M3 20h18"/><path d="M7 16c-1.5-2 1.5-3 0-5s1.5-3 0-5"/><path d="M12 16c-1.5-2 1.5-3 0-5s1.5-3 0-5"/><path d="M17 16c-1.5-2 1.5-3 0-5s1.5-3 0-5"/></g>
+        <g id="i-rain"><path d="M7 14a4 4 0 0 1 .6-8 5 5 0 0 1 9.6 1.2A3.5 3.5 0 0 1 17 14z"/><path d="M8 17l-1 3M12 17l-1 3M16 17l-1 3"/></g>
+        <g id="i-humidity"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.500 6-11 6-11z"/><path d="M9.500 14.500a2.500 2.500 0 0 0 2.500 2.500"/></g>
+        <g id="i-wind"><path d="M3 8h10a2.500 2.500 0 1 0-2.500-2.500"/><path d="M3 12h15a2.500 2.500 0 1 1-2.500 2.500"/><path d="M3 16h7a2 2 0 1 1-2 2"/></g>
+        <g id="i-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.900 4.900l2.100 2.100M17 17l2.100 2.100M4.900 19.100L7 17M17 7l2.100-2.100"/></g>
+        <g id="i-soil"><path d="M3 13h18M3 20h18"/><path d="M8 13l2 3-2 4M15 13l-1.500 3.500L16 20"/><path d="M12 13V8"/><path d="M12 8c0-2 1.500-3.500 4-3.500 0 2-1.500 3.500-4 3.500z"/></g>
+        <g id="i-leaf"><path d="M5 19c0-8 5-13 14-14 0 9-5 14-13 14"/><path d="M5 19c3-5 6-8 10-10"/></g>
+        <g id="i-sea"><path d="M2 9c2.500-2 4.500 2 7 0s4.500-2 7 0 3.500 1.500 6 0"/><path d="M2 14c2.500-2 4.500 2 7 0s4.500-2 7 0 3.500 1.500 6 0"/><path d="M2 19c2.500-2 4.500 2 7 0s4.500-2 7 0 3.500 1.500 6 0"/></g>
+        <g id="i-flask"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.800 3h10.400a2 2 0 0 0 1.800-3l-5-9V3"/><path d="M7.500 15h9"/></g>
+        <g id="i-dust"><circle cx="6" cy="8" r="1.200"/><circle cx="12" cy="6" r="1.600"/><circle cx="18" cy="9" r="1.200"/><circle cx="8" cy="14" r="1.800"/><circle cx="15" cy="14" r="1.300"/><circle cx="11" cy="19" r="1.200"/><circle cx="18" cy="18" r="1.600"/></g>
+        <g id="i-globe"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></g>
+        <g id="i-chart"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 6-7"/></g>
+        <g id="i-search"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></g>
+        <g id="i-bulb"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.500 10.900c.6.5 1 1.200 1 2.100h5c0-.9.4-1.600 1-2.100A6 6 0 0 0 12 3z"/></g>
+        <g id="i-sat"><circle cx="12" cy="12" r="5"/><path d="M3 15c4 3 15-1 18-6"/></g>
+        <g id="i-people"><circle cx="9" cy="8" r="3.500"/><path d="M2.500 20c0-3.600 2.900-6 6.500-6s6.500 2.400 6.500 6"/><path d="M16 5a3 3 0 0 1 0 6M18 14c2.200.7 3.500 2.600 3.500 5"/></g>
+        <g id="i-shield"><path d="M12 3l8 3v6c0 4.500-3.300 8-8 9-4.700-1-8-4.500-8-9V6z"/><path d="M8.500 12l2.500 2.500 4.500-5"/></g>
+        <g id="i-home"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></g>
+        <g id="i-info"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.500" r="0.800" fill="currentColor"/></g>
+        <g id="i-menu"><path d="M4 7h16M4 12h16M4 17h16"/></g>
+    </defs>
+</svg>
+
+<!-- the intro -->
+<div id="intro">
+    <canvas id="introCanvas"></canvas>
+    <div class="intro-title" id="introTitle">
+        <p class="kick">Satellite + NOAA data, 1984 to 2025</p>
+        <h1>ECO DRIFT</h1>
+        <p class="sub">Saudi Arabia Earth Trend Detective</p>
+    </div>
+    <p class="caption" id="caption"></p>
+    <button class="skip" id="skip">Skip intro &#9197;</button>
+</div>
+
+<!-- the dashboard -->
+<div id="app">
+
+<aside class="sidebar" id="sidebar">
+        <!-- logo (click = Home) -->
+        <div class="brand" id="brand" title="Home" tabindex="0" role="link">
+            <span><b>ECO DRIFT</b><small>by Team Zelo Radiation</small></span>
+        </div>
+        <nav class="tabs" role="tablist" aria-orientation="vertical" aria-label="Sections">
+            <span class="group">Overview</span>
+            <button role="tab" data-tab="home" aria-selected="true" title="Home"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-home"/></svg><span>Home</span></button>
+            <span class="group">Investigate</span>
+            <button role="tab" data-tab="compare" aria-selected="false" title="City comparison"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-search"/></svg><span>City comparison</span></button>
+            <button role="tab" data-tab="trends" aria-selected="false" title="Trends"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-chart"/></svg><span>Trends</span></button>
+            <button role="tab" data-tab="causes" aria-selected="false" title="Causes & solutions"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-bulb"/></svg><span>Causes &amp; solutions</span></button>
+            <button role="tab" data-tab="space" aria-selected="false" title="From space"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-sat"/></svg><span>From space</span></button>
+            <button role="tab" data-tab="myarea" aria-selected="false" title="Is my area getting hotter?"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-temp"/></svg><span>Is my area hotter?</span></button>
+            <span class="group">Learn</span>
+            <button role="tab" data-tab="how" aria-selected="false" title="How it works"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-info"/></svg><span>How it works</span></button>
+            <button role="tab" data-tab="about" aria-selected="false" title="About us"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-people"/></svg><span>About us</span></button>
+        </nav>
+        <div class="side-foot"><button class="ghost" id="replay" title="Play the intro again">&#9654;<span> Replay intro</span></button></div>
+    </aside>
+    <div class="main-col">
+    <header class="topbar">
+        <div class="crumb">ECO DRIFT / <b id="crumb">Home</b></div>
+    </header>
+
+    <main class="layout solo" id="layout">
+
+        <!-- LEFT: the globe and the case. They stay in view on every tab. -->
+        <aside class="side">
+            <div class="card">
+                <div class="lens">
+                    <canvas id="globe" role="img" aria-label="Globe showing Saudi Arabia with one hotspot per city"></canvas>
+                    <div id="tip"></div>
+                    <div class="zoom">
+                        <button id="zin" title="Zoom in" aria-label="Zoom in">+</button>
+                        <button id="zout" title="Zoom out" aria-label="Zoom out">&minus;</button>
+                        <button id="zhome" title="Back to Saudi Arabia" aria-label="Back to Saudi Arabia">&#8962;</button>
+                    </div>
+                </div>
+                <ul class="legend">
+                    <li><i style="background: var(--up)"></i>Real rising trend</li>
+                    <li><i style="background: var(--down)"></i>Real falling trend</li>
+                    <li><i style="background: var(--flat)"></i>No real trend</li>
+                    <li><i style="background: var(--amber)"></i>Not tested yet</li>
+                </ul>
+                <div class="pick">
+                    Clicking a hotspot sets
+                    <button id="pickA" class="on">City A</button>
+                    <button id="pickB">City B</button>
+                </div>
+                <p class="note" style="text-align: center">Drag to turn the globe. Imagery: Blue Marble.</p>
+            </div>
+
+            <div class="card">
+                <h3>The case</h3>
+                <p class="hint">These four choices apply to every tab.</p>
+                <div class="fields">
+                    <div><label for="source">Data source</label><select id="source">
+            <option value="NASA">POWER (All 7 variables)</option>
+            <option value="NOAA">NOAA CDO Station (Air temp, Rain, Wind)</option>
+        </select></div>
+                    <div><label for="variable">What to measure</label><select id="variable">
+            <option value="T2M,°C">Air temperature</option>
+            <option value="TS,°C">Ground surface temperature</option>
+            <option value="PRECTOTCORR,mm per day">Rain</option>
+            <option value="RH2M,%">Humidity</option>
+            <option value="WS2M,m/s">Wind speed</option>
+            <option value="ALLSKY_SFC_SW_DWN,MJ/m²/day">Sunshine energy</option>
+            <option value="GWETROOT,(scale 0 to 1)">Soil wetness</option>
+        </select></div>
+                    <div><label for="months">Which months</label><select id="months">
+            <option value="1,2,3,4,5,6,7,8,9,10,11,12">Whole year</option>
+            <option value="12,1,2">Winter (Dec, Jan, Feb)</option>
+            <option value="3,4,5">Spring (Mar, Apr, May)</option>
+            <option value="6,7,8">Summer (Jun, Jul, Aug)</option>
+            <option value="9,10,11">Autumn (Sep, Oct, Nov)</option>
+            <option value="1">January only</option>
+            <option value="4">April only</option>
+            <option value="7">July only</option>
+            <option value="10">October only</option>
+        </select></div>
+                    <div><label for="period">Which years</label><select id="period">
+            <option value="1984,2025">1984 to 2025 (42 years)</option>
+            <option value="1991,2025">1991 to 2025 (35 years)</option>
+            <option value="2001,2025">2001 to 2025 (25 years)</option>
+            <option value="2011,2025">2011 to 2025 (15 years)</option>
+        </select></div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- RIGHT: the tabs -->
+        <div class="content">
+
+            <!-- home tab -->
+            <section class="tab on stack" id="tab-home">
+                <div class="card hero">
+                    <p class="kick">Satellite + NOAA data, 1984 to 2025</p>
+                    <h1>ECO DRIFT</h1>
+                    <p class="lead">Is your city's climate really changing, or is it just normal ups and downs? We test 42 years of satellite and NOAA data to find out.</p>
+                    <div class="cta">
+                        <button data-go="compare">Compare two cities</button>
+                        <button class="ghost" data-go="trends">Scan the Kingdom</button>
+                    </div>
+                </div>
+
+                <div class="stats" aria-label="ECO DRIFT at a glance">
+                    <div class="stat"><b>23</b><span>cities tested</span></div>
+                    <div class="stat"><b>7</b><span>Earth variables</span></div>
+                    <div class="stat"><b>42</b><span>years of data (1984 to 2025)</span></div>
+                    <div class="stat"><b>2</b><span>data sources: POWER and NOAA</span></div>
+                </div>
+
+                <div class="card">
+                    <h2>What do you want to explore?</h2>
+                    <p class="hint">Pick one. The globe and the settings stay on the side on every page.</p>
+                    <div class="features">
+                        <button class="feature" data-go="compare"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-search"/></svg><h3>City comparison</h3><p>Pick two cities: what's changing, how fast, and is it real?</p><em>Open &rarr;</em></button>
+                        <button class="feature" data-go="trends"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-globe"/></svg><h3>Trends across the Kingdom</h3><p>Test all 23 cities at once and see them light up on the globe.</p><em>Open &rarr;</em></button>
+                        <button class="feature" data-go="causes"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-bulb"/></svg><h3>Causes &amp; solutions</h3><p>What each thing means, why it might change, and what helps.</p><em>Open &rarr;</em></button>
+                        <button class="feature" data-go="space"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-sat"/></svg><h3>From space</h3><p>Plants, sea temperature and dust, from satellites.</p><em>Open &rarr;</em></button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>The 4 questions we answer</h2>
+                    <div class="quest">
+                        <article><h3>What?</h3><p>Temperature, rain, humidity, wind, sunshine, soil wetness and more.</p></article>
+                        <article><h3>How much?</h3><p>The slope of the best-fit line through the yearly values.</p></article>
+                        <article><h3>Real or noise?</h3><p>A Mann-Kendall test. Real only if the chance of noise is under 5%.</p></article>
+                        <article><h3>Where?</h3><p>The same test runs on every city, so you see where change is real.</p></article>
+                    </div>
+                    <p class="note"><a href="#" data-go="how" style="color: var(--green)">Read how it decides</a> &middot; <a href="#" data-go="about" style="color: var(--green)">Meet the team</a></p>
+                </div>
+            </section>
+
+            <!-- city comparison tab -->
+            <section class="tab stack" id="tab-compare">
+                <div class="card">
+                    <h2>City comparison</h2>
+                    <p class="hint">Pick two cities and we test both: what's changing, by how much, and is it real or just noise?</p>
+                    <div class="fields">
+                        <div><label for="cityA"><i style="background: var(--city-a)"></i>City A</label><select id="cityA">
+            <option value="24.71,46.68,SA000040438">Riyadh</option>
+            <option value="26.33,43.97,SAM00040405">Buraidah</option>
+            <option value="26.08,43.99,SAM00040405">Unaizah</option>
+            <option value="21.54,39.17,SA000041024">Jeddah</option>
+            <option value="21.39,39.86,SAM00041030">Makkah</option>
+            <option value="24.47,39.61,SA000040430">Madinah</option>
+            <option value="21.27,40.42,SAM00041036">Taif</option>
+            <option value="24.09,38.06,SAM00040439">Yanbu</option>
+            <option value="26.43,50.10,SAM00040417">Dammam</option>
+            <option value="26.28,50.21,SAM00040416">Khobar / Dhahran</option>
+            <option value="26.56,50.01,SAM00040417">Qatif</option>
+            <option value="27.01,49.66,SAM00040417">Jubail</option>
+            <option value="25.38,49.59,SAM00040420">Al Hofuf</option>
+            <option value="28.38,36.57,SAM00040375">Tabuk</option>
+            <option value="27.52,41.69,SA000403940">Hail</option>
+            <option value="29.97,40.21,SAM00040361">Sakaka</option>
+            <option value="30.98,41.04,SAM00040357">Arar</option>
+            <option value="28.43,45.96,SAM00040373">Hafar Al-Batin</option>
+            <option value="18.22,42.51,SAM00041112">Abha</option>
+            <option value="18.31,42.73,SAM00041114">Khamis Mushait</option>
+            <option value="16.89,42.55,SAM00041140">Jazan</option>
+            <option value="17.49,44.13,SAM00041128">Najran</option>
+            <option value="20.01,41.47,SAM00041055">Al Baha</option>
+        </select></div>
+                        <div><label for="cityB"><i style="background: var(--city-b)"></i>City B (to compare)</label><select id="cityB"></select></div>
+                        <div style="display: flex; gap: 8px">
+                            <button onclick="detect()" id="btnDetect">Detect Trend</button>
+                            <button class="ghost" id="swap" title="Swap City A and City B">&#8644;</button>
+                        </div>
+                    </div>
+
+                    <div class="cases" aria-live="polite">
+                        <article class="case a">
+                            <div class="head" id="headA"></div>
+                            <p class="file" id="resultA">City A result will show here.</p>
+                        </article>
+                        <article class="case b">
+                            <div class="head" id="headB"></div>
+                            <p class="file" id="resultB">City B result will show here.</p>
+                        </article>
+                    </div>
+                    <p id="where">The comparison will show here.</p>
+
+                    <div class="chart-box"><canvas id="trendChart" role="img" aria-label="Line chart of the yearly values and trend lines for City A and City B"></canvas></div>
+                    <p class="note">Solid line = Observed data. Dashed line = the trend (best-fit line).</p>
+                </div>
+            </section>
+
+            <!-- trends tab -->
+            <section class="tab stack" id="tab-trends">
+                <div class="card">
+                    <h2>Trends across the Kingdom</h2>
+                    <p class="hint">Pick what to test. We run it on all 23 cities and colour them on the globe.</p>
+                    <div class="vars" id="vars"></div>
+                    <p style="margin: 14px 0 0"><button onclick="scanAll()" id="btnScan">Scan All Cities</button></p>
+                </div>
+
+                <div class="card">
+                    <h2>The verdict</h2>
+                    <div class="counts">
+                        <div class="count"><b id="nUp">-</b><span><i style="background: var(--up)"></i>rising (real)</span></div>
+                        <div class="count"><b id="nDown">-</b><span><i style="background: var(--down)"></i>falling (real)</span></div>
+                        <div class="count"><b id="nFlat">-</b><span><i style="background: var(--flat)"></i>no real trend</span></div>
+                    </div>
+                    <p id="scan" aria-live="polite">Press "Scan All Cities" to test every city.</p>
+                    <progress id="progress" value="0" max="23" hidden></progress>
+                    <div class="table-box"><table id="table"></table></div>
+                    <p class="note">Click a row to make that city City A.</p>
+                    <div class="chart-box" style="height: 440px; max-width: 520px; margin-inline: auto"><canvas id="mapChart" role="img" aria-label="Map of the cities coloured by trend"></canvas></div>
+                    <p class="note">Each dot is a city, placed like a map of Saudi Arabia.</p>
+                </div>
+            </section>
+
+            <!-- causes and solutions tab -->
+            <section class="tab stack" id="tab-causes">
+                <div class="card">
+                    <h2>Causes &amp; solutions</h2>
+                    <p class="hint">What each thing is, why it might change, and what helps.
+                        Our test can show <b>whether</b> something is changing, but not <b>why</b>. The causes below are what scientists usually link to each change.</p>
+                    <div class="clues" id="clues"></div>
+                </div>
+            </section>
+
+            <!-- from space (more nasa and noaa data for city a) tab -->
+            <section class="tab stack" id="tab-space">
+                <div class="card">
+                    <h2>More satellite &amp; NOAA CDO data for <span id="place">City A</span></h2>
+                    <p class="hint">Plants, sea and dust, seen from space. Pick dates and a sea spot, then press the button.</p>
+                    <div class="fields">
+                        <div><label for="date">Air map date</label><input type="date" id="date" value="2024-06-01"></div>
+                        <div><label for="start">Plants from</label><input type="date" id="start" value="2024-01-01"></div>
+                        <div><label for="end">Plants to</label><input type="date" id="end" value="2024-06-01"></div>
+                        <div><label for="sea">Sea spot</label><select id="sea">
+            <option value="21.50,38.90">Red Sea - off Jeddah</option>
+            <option value="24.00,37.80">Red Sea - off Yanbu</option>
+            <option value="27.30,35.40">Red Sea - off Duba</option>
+            <option value="16.50,41.90">Red Sea - off Jazan</option>
+            <option value="28.50,34.80">Gulf of Aqaba</option>
+            <option value="26.60,50.40">Arabian Gulf - off Dammam</option>
+            <option value="27.20,49.90">Arabian Gulf - off Jubail</option>
+            <option value="28.40,48.70">Arabian Gulf - off Khafji</option>
+        </select></div>
+                        <div><button onclick="getData()" id="btnData">Get Data</button></div>
+                    </div>
+
+                    <div class="tiles">
+                        <p id="temp">Temperature</p>
+                        <p id="rain">Rain</p>
+                        <p id="cdo">NOAA CDO Station</p>
+                        <p id="sst">Sea temperature</p>
+                        <p id="chl">Water quality</p>
+                    </div>
+
+                    <div class="pair">
+                        <div class="panel">
+                            <p>Plants (NDVI) chart</p>
+                            <div class="chart-box small"><canvas id="chart" role="img" aria-label="Line chart of plant greenness over time"></canvas></div>
+                            <p class="note" id="ndvi" style="font-weight: 400">Plants</p>
+                        </div>
+                        <div class="panel">
+                            <p>Plants map (green = more plants)</p>
+                            <img id="plantmap" alt="Satellite map of plant greenness over Saudi Arabia">
+                        </div>
+                        <div class="panel">
+                            <p>Air map (yellow and red = more dust)</p>
+                            <img id="air" alt="Satellite photo of Saudi Arabia with dust amounts drawn on top">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- is my area getting hotter? tab -->
+            <section class="tab stack" id="tab-myarea">
+                <div class="card">
+                    <h2>Is my area getting hotter?</h2>
+                    <p class="hint">Works for anywhere in the world. We get the average air temperature for every year from 1984 to 2025 from POWER, then run our trend test on it.</p>
+                    <div class="fields">
+                        <div><button onclick="useMyLocation()">&#128205; Use my location</button></div>
+                        <div><label for="myLat">Latitude</label><input type="number" id="myLat" step="0.01" min="-90" max="90" value="24.71"></div>
+                        <div><label for="myLon">Longitude</label><input type="number" id="myLon" step="0.01" min="-180" max="180" value="46.68"></div>
+                        <div><button class="ghost" onclick="checkMyArea()">Check</button></div>
+                    </div>
+                    <p class="answer" id="myAnswer" aria-live="polite">Press "Use my location", or type a place (it starts on Riyadh) and press Check.</p>
+                    <div class="chart-box"><canvas id="myChart" role="img" aria-label="Yearly average temperature at your location with a trend line"></canvas></div>
+                    <p class="note">POWER values are for a grid square about 50 km wide, not one thermometer. Your location is only sent to the POWER data service to get the data.</p>
+                </div>
+            </section>
+
+            <!-- how it works tab -->
+            <section class="tab stack" id="tab-how">
+                <div class="card">
+                    <h2>How it decides</h2>
+                    <p class="hint">For every place we answer 4 questions.</p>
+                    <div class="steps">
+                        <article><h3>What?</h3><p>POWER and NOAA give monthly or yearly numbers. The page turns them into one number per year for the months you chose.</p></article>
+                        <article><h3>How much?</h3><p>How much = slope of the best-fit line through the yearly values.</p></article>
+                        <article><h3>Real or noise?</h3><p>Real or noise = Mann-Kendall test. A trend is called real only if the chance of random noise is under 5%.</p></article>
+                        <article><h3>Where?</h3><p>The same test runs on 23 cities, so you can see where the change is real and where it is not.</p></article>
+                    </div>
+                    <p class="note">Data = POWER (MERRA-2 model and CERES satellite data) and NOAA NCEI Climate Data Online (CDO) ground stations.</p>
+                </div>
+            </section>
+
+            <!-- about us tab -->
+            <section class="tab stack" id="tab-about">
+                <div class="card">
+                    <h2>About us</h2>
+                    <div class="about-hero">
+                        <p class="hint" style="margin-bottom: 14px">Who we are and why we made this.</p>
+                        <p>ECO DRIFT was built for the Space Apps Challenge <b>&ldquo;Be an Earth System Trend Detective!&rdquo;</b>. We wanted anyone in Saudi Arabia, not only scientists, to be able to ask a simple question about the place where they live: <i>is it really changing?</i></p>
+                        <p>We take decades of free satellite and NOAA data, run a statistics test on it, and show the answer in plain words on a globe you can spin.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>Our mission</h2>
+                    <p class="hint">Make Earth data easy to understand, honest, and about your own city.</p>
+                    <div class="values">
+                        <article><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-people"/></svg><h3>Easy to understand</h3><p>Plain words and simple charts, no confusing terms.</p></article>
+                        <article><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-shield"/></svg><h3>Honest</h3><p>If something could just be random, we say so. And we never claim to know the cause.</p></article>
+                        <article><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-chart"/></svg><h3>Open data</h3><p>Everything comes from free satellite and NOAA data that anyone can check.</p></article>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>The team</h2>
+                    <p class="hint">Team Zelo Radiation: a team of high school students.</p>
+                </div>
+
+                <div class="card">
+                    <h2>Where the data comes from</h2>
+                    <ul class="sources">
+                        <li>POWER (MERRA-2 model and CERES satellite data)</li>
+                        <li>NOAA NCEI Climate Data Online ground stations</li>
+                        <li>MODIS MOD13Q1 plant greenness (ORNL DAAC)</li>
+                        <li>NOAA CoastWatch ERDDAP sea data</li>
+                        <li>GIBS maps and Blue Marble globe</li>
+                        <li>Natural Earth outlines</li>
+                    </ul>
+                </div>
+            </section>
+
+
+        </div>
+    </main>
+
+    </div>
+</div>
+
+<script src="js/script.js"></script>
+
+</body>
+</html>

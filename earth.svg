@@ -1,0 +1,33 @@
+<!-- Earth background (Home). Hand-drawn: ocean, land, clouds, glow and an orbit ring -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+  <defs>
+    <radialGradient id="glow"><stop offset="0.78" stop-color="#7fd3ff" stop-opacity="0.55"/><stop offset="1" stop-color="#7fd3ff" stop-opacity="0"/></radialGradient>
+    <radialGradient id="sea" cx="0.38" cy="0.35" r="0.75"><stop offset="0" stop-color="#4fb3e8"/><stop offset="0.6" stop-color="#1f6fb2"/><stop offset="1" stop-color="#0c3b6e"/></radialGradient>
+    <radialGradient id="shade" cx="0.3" cy="0.3" r="0.9"><stop offset="0.55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#001a33" stop-opacity="0.45"/></radialGradient>
+    <clipPath id="ball"><circle cx="300" cy="300" r="210"/></clipPath>
+  </defs>
+  <circle cx="300" cy="300" r="250" fill="url(#glow)"/>
+  <circle cx="300" cy="300" r="210" fill="url(#sea)"/>
+  <g clip-path="url(#ball)" fill="#3fa34d">
+    <!-- Africa + Arabia -->
+    <path d="M250 150 C290 140 330 150 345 175 C360 200 395 205 405 235 C380 250 360 240 350 262 C340 300 330 330 310 360 C295 390 285 420 270 440 C255 420 250 390 245 360 C235 330 205 320 200 290 C195 260 210 240 205 215 C215 185 230 160 250 150 Z"/>
+    <path d="M360 175 C390 170 420 185 430 205 C420 225 400 230 385 222 C372 210 362 195 360 175 Z" fill="#c9a44c"/>
+    <!-- Europe -->
+    <path d="M240 120 C270 100 310 100 340 112 C330 130 300 138 270 140 C255 138 245 132 240 120 Z"/>
+    <!-- Asia edge -->
+    <path d="M430 130 C470 140 500 170 515 210 C500 230 470 225 450 205 C440 185 430 160 430 130 Z"/>
+    <!-- South America edge -->
+    <path d="M95 300 C120 290 140 310 140 340 C135 380 120 410 105 430 C95 400 90 360 95 300 Z"/>
+  </g>
+  <g clip-path="url(#ball)" fill="#ffffff" opacity="0.75">
+    <ellipse cx="200" cy="230" rx="60" ry="10"/><ellipse cx="380" cy="320" rx="70" ry="11"/>
+    <ellipse cx="300" cy="420" rx="80" ry="10"/><ellipse cx="420" cy="150" rx="40" ry="8"/>
+  </g>
+  <circle cx="300" cy="300" r="210" fill="url(#shade)"/>
+  <!-- orbit and a tiny satellite -->
+  <ellipse cx="300" cy="300" rx="285" ry="90" fill="none" stroke="#00843d" stroke-width="3" stroke-dasharray="10 12" transform="rotate(-18 300 300)"/>
+  <g transform="translate(540 205) rotate(-18)">
+    <rect x="-8" y="-7" width="16" height="14" rx="2" fill="#c98500"/>
+    <rect x="-38" y="-5" width="26" height="10" fill="#1f6fb2"/><rect x="12" y="-5" width="26" height="10" fill="#1f6fb2"/>
+  </g>
+</svg>

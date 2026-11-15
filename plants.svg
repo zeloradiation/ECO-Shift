@@ -1,0 +1,24 @@
+<!-- Plants background (Causes & About): leafy stems growing from the ground -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+  <defs>
+    <!-- one leaf, used many times -->
+    <path id="leaf" d="M0 0 C18 -26 58 -28 80 0 C58 28 18 26 0 0 Z"/>
+  </defs>
+  <path d="M0 560 C150 530 300 545 600 520 L600 600 L0 600 Z" fill="#8fcf9a"/>
+  <g fill="none" stroke="#2e7d46" stroke-width="6" stroke-linecap="round">
+    <path d="M300 560 C295 450 310 330 290 200"/>
+    <path d="M430 555 C440 470 420 400 445 320"/>
+    <path d="M180 560 C175 500 190 450 170 390"/>
+  </g>
+  <g fill="#3fa34d">
+    <use href="#leaf" transform="translate(297 470) rotate(-30)"/><use href="#leaf" transform="translate(300 430) rotate(200)"/>
+    <use href="#leaf" transform="translate(302 360) rotate(-40)"/><use href="#leaf" transform="translate(298 320) rotate(210)"/>
+    <use href="#leaf" transform="translate(295 250) rotate(-55)"/><use href="#leaf" transform="translate(292 215) rotate(235)"/>
+  </g>
+  <g fill="#6cc070">
+    <use href="#leaf" transform="translate(435 470) rotate(-25) scale(0.8)"/><use href="#leaf" transform="translate(432 420) rotate(205) scale(0.8)"/>
+    <use href="#leaf" transform="translate(440 360) rotate(-50) scale(0.8)"/>
+    <use href="#leaf" transform="translate(178 500) rotate(195) scale(0.7)"/><use href="#leaf" transform="translate(174 440) rotate(-35) scale(0.7)"/>
+  </g>
+  <circle cx="290" cy="196" r="14" fill="#ffb547"/>
+</svg>
